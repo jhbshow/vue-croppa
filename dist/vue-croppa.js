@@ -2,7 +2,7 @@
  * vue-croppa v1.3.8
  * https://github.com/zhanziyang/vue-croppa
  * 
- * Copyright (c) 2018 zhanziyang
+ * Copyright (c) 2019 zhanziyang
  * Released under the ISC license
  */
   
@@ -947,6 +947,9 @@ var component = { render: function render() {
     emitNativeEvent: function emitNativeEvent(evt) {
       this.emitEvent(evt.type, evt);
     },
+    setFile: function setFile(file) {
+      this._onNewFileIn(file);
+    },
     _setContainerSize: function _setContainerSize() {
       if (this.useAutoSizing) {
         this.realWidth = +getComputedStyle(this.$refs.wrapper).width.slice(0, -2);
@@ -1177,9 +1180,9 @@ var component = { render: function render() {
       if (!input.files.length || this.passive) return;
 
       var file = input.files[0];
-      this._onNewFileIn(file);
+      this._onNewFileIn(file, true);
     },
-    _onNewFileIn: function _onNewFileIn(file) {
+    _onNewFileIn: function _onNewFileIn(file, isInputChange) {
       var _this6 = this;
 
       this.currentIsInitial = false;
@@ -1227,7 +1230,9 @@ var component = { render: function render() {
             fileData = null;
             img.onload = function () {
               _this6._onload(img, orientation);
-              _this6.emitEvent(events.NEW_IMAGE_EVENT);
+              _this6.emitEvent(events.NEW_IMAGE_EVENT, {
+                isInputChange: !!isInputChange
+              });
             };
           }
         };

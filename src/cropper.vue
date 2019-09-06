@@ -753,10 +753,10 @@ export default {
       if (!input.files.length || this.passive) return
 
       let file = input.files[0]
-      this._onNewFileIn(file)
+      this._onNewFileIn(file, true)
     },
 
-    _onNewFileIn (file) {
+    _onNewFileIn (file, isInputChange) {
       this.currentIsInitial = false
       this.loading = true
       this.emitEvent(events.FILE_CHOOSE_EVENT, file)
@@ -802,7 +802,9 @@ export default {
             fileData = null;
             img.onload = () => {
               this._onload(img, orientation)
-              this.emitEvent(events.NEW_IMAGE_EVENT)
+              this.emitEvent(events.NEW_IMAGE_EVENT, {
+                isInputChange: !!isInputChange
+              })
             }
           }
         }
