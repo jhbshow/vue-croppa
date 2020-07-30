@@ -1,8 +1,8 @@
 /*
- * vue-croppa v1.3.8
+ * vue-croppa v1.3.9
  * https://github.com/zhanziyang/vue-croppa
  * 
- * Copyright (c) 2019 zhanziyang
+ * Copyright (c) 2020 zhanziyang
  * Released under the ISC license
  */
   
